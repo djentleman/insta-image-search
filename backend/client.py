@@ -10,8 +10,9 @@ class IISClient():
         # load saved images into memory here
         self.images = []
 
-    def search_with_image(image):
+    def search_with_image(self, image):
         vector = do_feature_extraction(image)
+        print(vector)
         return sorted(self.images, key=lambda x: -get_similarity(x['vector'], vector))[:10]
 
 

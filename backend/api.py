@@ -13,7 +13,7 @@ iis_client = IISClient()
 def upload_file(body):
     """accepts file uploads"""
     filename = list(body.keys()).pop()
-    content = body[content]
+    content = body[filename]
     stream = BytesIO(content)
     response = iis_client.search_with_image(stream)
     return response
