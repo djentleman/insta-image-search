@@ -19,6 +19,7 @@ wait = 2 # seconds
 data = []
 
 for hashtag in hashtags:
+    print(hashtag)
     url = base_url % (hashtag,)
     images = json.loads(requests.get(url).text)
     for image in images['graphql']['hashtag']['edge_hashtag_to_media']['edges']:
@@ -26,6 +27,7 @@ for hashtag in hashtags:
         if not image['is_video']:
             # want the 250x250 thumbnail
             image_url = image['thumbnail_resources'][1]['src']
+            print(image_url)
             account_id = image['owner']['id']
             image_data = BytesIO(requests.get(image_url).content)
             image_vector = model.do_feature_extraction(image_data)
