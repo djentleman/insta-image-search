@@ -13,7 +13,7 @@ hashtags = [
     'clothes', 'fashion', 'couple', 'selfie', 'friends', 'fun'
 ]
 
-output_file = 'image_data.json'
+output_file = '%s_image_data.json'
 base_url = 'https://www.instagram.com/explore/tags/%s/?__a=1'
 wait = 2 # seconds
 data = []
@@ -38,7 +38,8 @@ for hashtag in hashtags:
                 'account_id': account_id
             })
         time.sleep(wait)
+    open(output_file % (hashtag,), 'w+').write(json.dumps(data))
+    data = []
     time.sleep(wait)
 
-open(output_file, 'w+').write(json.dumps(data))
 
