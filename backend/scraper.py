@@ -27,16 +27,18 @@ for hashtag in hashtags:
             image = image['node']
             if not image['is_video']:
                 # want the 250x250 thumbnail
-                image_url = image['thumbnail_resources'][1]['src']
-                print(image_url)
+                small_url = image['thumbnail_resources'][1]['src']
+                full_url = image['display_url']
+                print(full_url)
                 account_id = image['owner']['id']
-                image_data = BytesIO(requests.get(image_url).content)
+                image_data = BytesIO(requests.get(small_url).content)
                 image_vector = model.do_feature_extraction(image_data)
                 shortcode = image['shortcode']
                 instagram_url = 'https://www.instagram.com/p/%s/' % (shortcode,)
                 data.append({
                     'hashtag': hashtag,
-                    'image_url': image_url,
+                    'full_url': full_url,
+                    'small_url': small_url,
                     'instagram_url': instagram_url,
                     'image_vector': image_vector.tolist(),
                     'account_id': account_id
