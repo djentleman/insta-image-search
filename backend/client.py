@@ -17,7 +17,12 @@ class IISClient():
     def search_with_image(self, image):
         vector = do_feature_extraction(image)
         print(vector)
-        return sorted(self.images, key=lambda x: -get_similarity(x['vector'], vector))[:10]
+        results = sorted(self.images, key=lambda x: -get_similarity(x['image_vector'], vector))[:10]
+        return [{
+            'instagram_url': res['instagram_url'],
+            'img_src': res['full_url'],
+            'account_id': res['account_id'],
+        } for res in results]
 
     def load_images(self):
         for filename in os.listdir('data/'):
