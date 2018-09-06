@@ -31,8 +31,17 @@ Upload.prototype.doUpload = function () {
             return myXhr;
         },
         success: function (data) {
-            console.log(data)
+          for (i = 0; i < data.length; i++) {
+              // imgタグを作成
+              img = $("<img>")
+              // imgタグのsrcアトリビュートにdata[i]を代入
+              img.attr('src', data[i])
+              // 親要素(grid)に作成したimgタグを追加
+              $('.grid').append(img)
+              
+          }
         },
+
         error: function (error) {
             console.log(error)
         },
