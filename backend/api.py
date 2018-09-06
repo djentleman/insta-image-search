@@ -13,7 +13,12 @@ def upload_file(body):
     'https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Tunnel_View_5%2C_Yosemite_Valley%2C_Yosemite_NP_-_Diliff.jpg/2880px-Tunnel_View_5%2C_Yosemite_Valley%2C_Yosemite_NP_-_Diliff.jpg']
 
     """accepts file uploads"""
-    filename = 'file'
+    if 'file' in body.keys():
+        # sent from client
+        filename = 'file'
+    else:
+        # sent from curl etc
+        filename = list(body.keys()).pop()
     content = body[filename]
     if type(content) == str:
         content = content.encode()
