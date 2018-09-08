@@ -30,13 +30,15 @@ for hashtag in hashtags:
                 small_url = image['thumbnail_resources'][1]['src']
                 full_url = image['display_url']
                 print(full_url)
+                hashtags = [tag for tag in image['edge_media_to_caption']['edges'][0]['node']['text'].replace('\n', '').split(' ') if '#' in tag]
                 account_id = image['owner']['id']
                 image_data = BytesIO(requests.get(small_url).content)
                 image_vector = model.do_feature_extraction(image_data)
                 shortcode = image['shortcode']
                 instagram_url = 'https://www.instagram.com/p/%s/' % (shortcode,)
                 data.append({
-                    'hashtag': hashtag,
+                    'searchterm': hashtag,
+                    'hashtags': hashtags,
                     'full_url': full_url,
                     'small_url': small_url,
                     'instagram_url': instagram_url,
