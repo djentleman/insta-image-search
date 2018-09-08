@@ -1,8 +1,13 @@
 body {
   margin: 0 auto;
-  max-width: 56em;
-  padding: 1em 0;
+  /* max-width: 56em */
+  padding-bottom: 10px;
 }
+
+.cover{
+  background: url(img/bg_header.png);
+  background-size: cover;
+ }
 
 .item{
   width:100%;
