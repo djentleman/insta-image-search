@@ -35,7 +35,7 @@ Upload.prototype.doUpload = function () {
               // imgタグを作成
               img = $("<img>").addClass('item');
               // imgタグのsrcアトリビュートにdata[i]を代入
-              img.attr('src', data[i]);
+              img.attr('src', data[i].img_src);
               // 親要素(grid)に作成したimgタグを追加
               $('.grid').append(img);
 
