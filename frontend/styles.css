@@ -4,7 +4,13 @@ body {
   padding: 1em 0;
 }
 
+.item{
+  width:100%;
+  height:auto;
+}
+
 .grid {
+
   /* Grid Fallback */
   display: flex;
   flex-wrap: wrap;
