@@ -9,8 +9,14 @@ hashtags = [
     'italy', 'america', 'england', 'france', 'japan', 'korea', 'russia', 'france', 'germany',
     'london', 'milano', 'moscow', 'kyoto', 'tokyo', 'rome', 'castle', 'church', 'temple',
     'pet', 'exoticpet', 'animal', 'dog', 'cat', 'rabbit', 'hamster', 'guineapig', 'snake',
-    'car', 'supercar', 'driving', 'roadtrip', 'scenery', 'nature', 'park', 'wildwife',
-    'clothes', 'fashion', 'couple', 'selfie', 'friends', 'fun'
+    'car', 'supercar', 'driving', 'roadtrip', 'scenery', 'nature', 'park', 'wildlife',
+    'clothes', 'fashion', 'couple', 'selfie', 'friends', 'fun', 'food', 'foodporn',
+    'lunch', 'dinner', 'burger', 'hotdog', 'sushi', 'coffee', 'pasta', 'pizza',
+    'ramen', 'borscht', 'soup', 'tasty', 'beer', 'wine', 'whiskey', 'alcohol', 'pub',
+    'safari', 'elephant', 'zebra', 'horse', 'rhino', 'giraffe', 'africa', 'desert',
+    'truck', 'boat', 'ship', 'plane', 'airport', 'aeroplane', 'submarine', 'museum',
+    'mexican', 'italian', 'japanese', 'chinese', 'korean', 'jamaican', 'record', 'vinyl',
+    'love', 'instagood', 'me', 'tbt', 'cute', 'girl', 'boy', 'bored', 'music', 'instacool'
 ]
 
 output_file = '%s_image_data.json'
