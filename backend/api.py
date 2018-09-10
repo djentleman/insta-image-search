@@ -5,7 +5,7 @@ from io import BytesIO
 iis_client = IISClient()
 
 api = hug.API(__name__)
-api.http.add_middleware(hug.middleware.CORSMiddleware(api, max_age=10))
+api.http.add_middleware(hug.middleware.CORSMiddleware(api, max_age=1000))
 
 @hug.post('/upload')
 def upload_file(body):

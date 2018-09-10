@@ -31,6 +31,7 @@ Upload.prototype.doUpload = function () {
             return myXhr;
         },
         success: function (data) {
+          $('.item').remove();
           for (i = 0; i < data.length; i++) {
               // imgタグを作成
               img = $("<img>").addClass('item');
@@ -38,8 +39,7 @@ Upload.prototype.doUpload = function () {
               img.attr('src', data[i].img_src);
               // 親要素(grid)に作成したimgタグを追加
               $('.grid').append(img);
-
-          }
+            }
         },
 
         error: function (error) {
