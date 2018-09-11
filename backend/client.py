@@ -13,15 +13,17 @@ class IISClient():
         # load saved images into memory here
         self.images = []
         self.load_images()
+        self.result_count = 15
 
     def search_with_image(self, image):
         vector = do_feature_extraction(image)
         print(vector)
-        results = sorted(self.images, key=lambda x: -get_similarity(x['image_vector'], vector))[:10]
+        results = sorted(self.images, key=lambda x: -get_similarity(x['image_vector'], vector))[:self.result_count]
         return [{
             'instagram_url': res['instagram_url'],
             'img_src': res['full_url'],
             'account_id': res['account_id'],
+            'hashtags': res['hashtags'],
         } for res in results]
 
     def load_images(self):
