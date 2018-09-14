@@ -27,6 +27,16 @@ body {
   grid-gap: 1em;
 }
 
+.tags {
+  display: flex;
+  overflow: auto;
+  white-space: nowrap;
+}
+
+.tag{
+  padding:2px 5px;
+}
+
 .module {
   /* Demo-Specific Styles */
   background: #eaeaea;
