@@ -33,6 +33,8 @@ Upload.prototype.doUpload = function () {
         success: function (data) {
           $('.item,.url').remove();
           for (i = 0; i < data.length; i++) {
+            // 子要素（.tag)にdate[i].hashtagsを代入
+              $('.tags').append(data[i].hashtags);
               // imgタグを作成
               img = $("<img>").addClass('item');
               // imgタグのsrcアトリビュートにdata[i]を代入
@@ -40,8 +42,7 @@ Upload.prototype.doUpload = function () {
               // 親要素(grid)に作成したimgタグを追加
               $('.grid').append(img);
               // 画像にリンクを追加
-              img.wrap($('<a>').prop('href',data[i].instagram_url).addClass('url'));
-
+              img.wrap($('<div class="photo"><div class="inner"><a>').prop('href',data[i].instagram_url).addClass('url'));
             }
         },
 
