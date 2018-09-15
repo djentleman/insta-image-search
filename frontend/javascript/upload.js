@@ -42,7 +42,10 @@ Upload.prototype.doUpload = function () {
               // 親要素(grid)に作成したimgタグを追加
               $('.grid').append(img);
               // 画像にリンクを追加
-              img.wrap($('<div class="photo"><div class="inner"><a>').prop('href',data[i].instagram_url).addClass('url'));
+              img.wrap($('<div class="photo"><div class="inner">'));
+              img.wrap($('<a>').prop('href',data[i].instagram_url).addClass('url'));
+
+
             }
         },
 
