@@ -32,20 +32,24 @@ Upload.prototype.doUpload = function () {
         },
         success: function (data) {
               // 前の画像を削除
+	  console.log(data)
+	  images = data.images;
+	  hashtags = data.hashtags;
+	  $('.tags').append(hashtags);
           $('.item,.url,.photo,.inner').remove();
-          for (i = 0; i < data.length; i++) {
+          for (i = 0; i < images.length; i++) {
             // 子要素（.tag)にdate[i].hashtagsを代入
-              $('.tags').append(data[i].hashtags);
+              //$('.tags').append(data[i].hashtags);
               // imgタグを作成
               img = $("<img>").addClass('item');
               // imgタグのsrcアトリビュートにdata[i]を代入
-              img.attr('src', data[i].img_src);
+              img.attr('src', images[i].img_src);
               // 親要素(grid)に作成したimgタグを追加
               $('.grid').append(img);
               // 画像をdivで囲む
               img.wrap($('<div class="photo"><div class="inner">'));
               // 画像にリンクを追加
-              img.wrap($('<a>').prop('href',data[i].instagram_url).addClass('url'));
+              img.wrap($('<a>').prop('href',images[i].instagram_url).addClass('url'));
 
 
             }

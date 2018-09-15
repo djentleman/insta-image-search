@@ -6,6 +6,16 @@ from model import (
 )
 import numpy as np
 
+def calculate_hashtag_popularity(hashtags):
+    scores = {}
+    for hashtag_set in hashtags:
+        for hashtag in hashtag_set:
+            if hashtag in scores.keys():
+                scores[hashtag] += 1
+            else:
+                scores[hashtag] = 1
+    return scores
+
 # client for handling requests/jobs for the instagram image search
 class IISClient():
 
@@ -19,12 +29,16 @@ class IISClient():
         vector = do_feature_extraction(image)
         print(vector)
         results = sorted(self.images, key=lambda x: -get_similarity(x['image_vector'], vector))[:self.result_count]
-        return [{
+        stripped_results = [{
             'instagram_url': res['instagram_url'],
             'img_src': res['full_url'],
             'account_id': res['account_id'],
             'hashtags': res['hashtags'],
         } for res in results]
+        return {
+            'images': stripped_results,
+            'hashtags': calculate_hashtag_popularity([res['hashtags'] for res in stripped_results])
+        }
 
     def load_images(self):
         for filename in os.listdir('data/'):
