@@ -31,7 +31,8 @@ Upload.prototype.doUpload = function () {
             return myXhr;
         },
         success: function (data) {
-          $('.item,.url').remove();
+              // 前の画像を削除
+          $('.item,.url,.photo,.inner').remove();
           for (i = 0; i < data.length; i++) {
             // 子要素（.tag)にdate[i].hashtagsを代入
               $('.tags').append(data[i].hashtags);
@@ -41,8 +42,9 @@ Upload.prototype.doUpload = function () {
               img.attr('src', data[i].img_src);
               // 親要素(grid)に作成したimgタグを追加
               $('.grid').append(img);
-              // 画像にリンクを追加
+              // 画像をdivで囲む
               img.wrap($('<div class="photo"><div class="inner">'));
+              // 画像にリンクを追加
               img.wrap($('<a>').prop('href',data[i].instagram_url).addClass('url'));
 
 
