@@ -31,17 +31,6 @@ Upload.prototype.doUpload = function () {
             return myXhr;
         },
         success: function (data) {
-              // 前の画像を削除
-<<<<<<< HEAD
-          $('.item,.url,.photo,.inner,li').remove();
-          for (i = 0; i < data.length; i++) {
-            // hashタグを表示
-            tags = data[i].hashtags.map(function (tag) {
-              return $('<li>').text(tag+'　') });
-
-            $('.tags').append(tags);
-
-=======
 	  console.log(data)
 	  images = data.images;
 	  hashtags = data.hashtags;
@@ -50,7 +39,6 @@ Upload.prototype.doUpload = function () {
           for (i = 0; i < images.length; i++) {
             // 子要素（.tag)にdate[i].hashtagsを代入
               //$('.tags').append(data[i].hashtags);
->>>>>>> 9d102438be84b14f20a6626d818d7a890d9987b7
               // imgタグを作成
               img = $("<img>").addClass('item');
               // imgタグのsrcアトリビュートにdata[i]を代入
