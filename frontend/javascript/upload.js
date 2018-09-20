@@ -32,10 +32,14 @@ Upload.prototype.doUpload = function () {
         },
         success: function (data) {
               // 前の画像を削除
-          $('.item,.url,.photo,.inner').remove();
+          $('.item,.url,.photo,.inner,li').remove();
           for (i = 0; i < data.length; i++) {
-            // 子要素（.tag)にdate[i].hashtagsを代入
-              $('.tags').append(data[i].hashtags);
+            // hashタグを表示
+            tags = data[i].hashtags.map(function (tag) {
+              return $('<li>').text(tag+'　') });
+
+            $('.tags').append(tags);
+
               // imgタグを作成
               img = $("<img>").addClass('item');
               // imgタグのsrcアトリビュートにdata[i]を代入

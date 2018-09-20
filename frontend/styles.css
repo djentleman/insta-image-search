@@ -47,14 +47,20 @@ width: auto;
 height: 100%;
 }
 
-.tags {
-  display: flex;
-  overflow: auto;
-  white-space: nowrap;
+ul {
+  list-style: none;
 }
 
-.tag{
-  padding:2px 5px;
+.tags {
+  display: flex;
+  white-space: nowrap;
+  margin-top: 16px;
+  margin-bottom:10px;
+}
+
+li {
+  float: left;
+  color:#a100ff;
 }
 
 .module {
