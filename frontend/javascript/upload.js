@@ -50,12 +50,6 @@ Upload.prototype.doUpload = function () {
 
                 $('.tags').append(tags);
 
-
-            // for (var tag in hashtags) {
-  	        //    $li = $('<li>').text(tag+'　')
-  	        //     $('.tags').append($li)
-            //   };
-
           for (i = 0; i < images.length; i++) {
               // imgタグを作成
               img = $("<img>").addClass('item');
