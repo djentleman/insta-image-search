@@ -31,14 +31,32 @@ Upload.prototype.doUpload = function () {
             return myXhr;
         },
         success: function (data) {
-	  console.log(data)
-	  images = data.images;
-	  hashtags = data.hashtags;
-	  $('.tags').append(hashtags);
-          $('.item,.url,.photo,.inner').remove();
+          $('.item,.url,.photo,.inner,li').remove();
+	          console.log(data)
+	          images = data.images;
+	          hashtags = data.hashtags;
+
+            var hashtags_arrary = []
+            for (var tag in hashtags) {
+		            hashtags_arrary.push({ name: tag, score: hashtags[tag] })
+              };
+              hashtags_arrary.sort(function (a, b) {
+  	             return b.score - a.score
+               });
+ 	             console.log(hashtags_arrary);
+               tags = hashtags_arrary.map(function (tag) {
+  	              return $('<li>').text(tag.name+'　')
+                });
+
+                $('.tags').append(tags);
+
+
+            // for (var tag in hashtags) {
+  	        //    $li = $('<li>').text(tag+'　')
+  	        //     $('.tags').append($li)
+            //   };
+
           for (i = 0; i < images.length; i++) {
-            // 子要素（.tag)にdate[i].hashtagsを代入
-              //$('.tags').append(data[i].hashtags);
               // imgタグを作成
               img = $("<img>").addClass('item');
               // imgタグのsrcアトリビュートにdata[i]を代入
