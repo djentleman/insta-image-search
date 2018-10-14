@@ -2,8 +2,10 @@ import boto3
 import json
 import os
 import numpy as np
+from botocore import UNSIGNED
+from botocore.client import Config
 
-s3_client = boto3.client('s3')
+s3_client = boto3.client('s3', config=Config(signature_version=UNSIGNED))
 S3_BUCKET = 'insta-image-search'
 
 def read_s3_file(key):
