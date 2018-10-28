@@ -39,4 +39,3 @@ class IISClient():
             'images': stripped_results,
             'hashtags': calculate_hashtag_popularity([res['hashtags'] for res in stripped_results])
         }
-

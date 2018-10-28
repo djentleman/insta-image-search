@@ -23,3 +23,16 @@ def upload_file(body):
         content = content.encode()
     response = iis_client.search_with_image(BytesIO(content))
     return response
+    from falcon import ( HTTP_400, )
+import line
+
+@hug.post('/callback')
+def callback(body, response = None):
+    # handle API call
+    message = line.get_message(body)
+    reply_token = line.get_reply_token(body)
+    if message == None:
+        response.__status = HTTP_400
+        # no message
+        return 'NO MESSAGE'
+    line.send_response(reply_token, message)
