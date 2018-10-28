@@ -1,1 +1,1 @@
-web: hug -f api.py
+web: gunicorn api:__hug_wsgi__
