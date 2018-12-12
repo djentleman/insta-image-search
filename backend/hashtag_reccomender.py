@@ -7,10 +7,12 @@ from keras.layers import (
     Dense,
     dot
 )
+from keras.callbacks import LambdaCallback
 from keras.models import Model
 from functools import reduce
 from random import (
-    choice as rndchoice
+    choice as rndchoice,
+    randint
 )
 # train model
 
@@ -38,6 +40,8 @@ reverse_mapping = {str(i): h for i, h in enumerate(all_hashtags)}
 # now build context pairs
 # iterate over every individual hashtag, get a positive and a negative example
 
+n_labels = 5
+
 pairs = []
 labels = []
 
@@ -46,28 +50,30 @@ for i, hts in enumerate(hashtags):
     for j, hashtag in enumerate(hts):
         ht_whitelist = list(set(hts).difference(hashtag))
         # positive
-        pairs.append(
-            [
-                mapping[hashtag],
-                mapping[rndchoice(ht_whitelist)]
-            ]
-        )
-        labels.append(1)
+        for i in range(n_labels):
+            pairs.append(
+                [
+                    mapping[hashtag],
+                    mapping[rndchoice(ht_whitelist)]
+                ]
+            )
+            labels.append(1)
         # negative
-        while True:
-            # pick a random hashtag
-            random_hashtag = rndchoice(all_hashtags)
-            # check if in whitelist
-            if random_hashtag not in hts:
-                negative_hashtag = random_hashtag
-                break
-        pairs.append(
-            [
-                mapping[hashtag],
-                mapping[negative_hashtag]
-            ]
-        )
-        labels.append(0)
+        for i in range(n_labels):
+            while True:
+                # pick a random hashtag
+                random_hashtag = rndchoice(all_hashtags)
+                # check if in whitelist
+                if random_hashtag not in hts:
+                    negative_hashtag = random_hashtag
+                    break
+            pairs.append(
+                [
+                    mapping[hashtag],
+                    mapping[negative_hashtag]
+                ]
+            )
+            labels.append(0)
 
 pairs = np.array(pairs)
 labels = np.array(labels)
@@ -77,6 +83,7 @@ labels = np.array(labels)
 # network hyperparameters
 vector_dim = 300
 epochs = 100
+batch_size = 2048
 
 
 
@@ -101,4 +108,29 @@ output = Dense(1, activation='sigmoid')(dot_product)
 model = Model(input=[input_target, input_context], output=output)
 model.compile(loss='binary_crossentropy', optimizer='rmsprop')
 
+similarity_model = Model(input=[input_target, input_context], output=similarity)
+
+vector_model = Model(input=input_target, output=target)
+
 # build similarity lambda, and fitting function :)
+def on_epoch_end(epoch, logs):
+    print('Epoch: %s' % epoch)
+    if epoch % 10 != 0:
+        print('skipping vaidation...')
+        return
+    words = [randint(0, vocab_size-1) for i in range(5)]
+    for word in words:
+        similarities = [(i, similarity_model.predict([np.array([word]), np.array([i])])[0][0][0]) for i in range(vocab_size)]
+        similarities = sorted(similarities, key=lambda x: x[1])
+        most_similar = similarities[-10:]
+        print('similar words - %s' % reverse_mapping[str(word)])
+        print(', '.join([reverse_mapping[str(x[0])] for x in most_similar]))
+
+
+
+print_callback = LambdaCallback(on_epoch_end=on_epoch_end)
+model.fit([pairs[:, 0], pairs[:, 1]], labels, batch_size=batch_size,
+                    epochs=epochs,
+                    callbacks=[print_callback])
+
+
