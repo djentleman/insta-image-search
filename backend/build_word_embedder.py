@@ -14,6 +14,7 @@ from random import (
     choice as rndchoice,
     randint
 )
+import json
 # train model
 
 def clean_hashtags(hashtags):
@@ -23,7 +24,7 @@ def clean_hashtags(hashtags):
     split_hashtags = [ht.split('#') for ht in hashtags]
     # rejoin
     hashtags = list(reduce(lambda x, y: x + y, split_hashtags))
-    hashtags = [ht if ht[0] == '#' else '#' + ht for ht in hashtags if ht != '']
+    hashtags = [ht.lower() if ht[0] == '#' else '#' + ht for ht in hashtags if ht != '']
     return hashtags
 
 client = IISClient()
@@ -139,7 +140,7 @@ def load_model(path):
 # build similarity lambda, and fitting function :)
 def on_epoch_end(epoch, logs):
     print('Epoch: %d' % (epoch+1))
-    if epoch % 10 != 9:
+    if epoch % 20 != 19:
         print('skipping vaidation...')
         return
     words = [randint(0, vocab_size-1) for i in range(5)]
@@ -163,4 +164,7 @@ model.fit([pairs[:, 0], pairs[:, 1]], labels, batch_size=batch_size,
                     epochs=epochs,
                     callbacks=[print_callback])
 
-save_model(vector_model, 'word_embedder')'
+save_model(vector_model, 'word_embedder')
+# these need to be loaded on the other side - so save the json objects
+open('mapping.json', 'w+').write(json.dumps(mapping))
+open('reverse_mapping.json', 'w+').write(json.dumps(reverse_mapping))
