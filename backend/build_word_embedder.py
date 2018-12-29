@@ -24,7 +24,8 @@ def clean_hashtags(hashtags):
     split_hashtags = [ht.split('#') for ht in hashtags]
     # rejoin
     hashtags = list(reduce(lambda x, y: x + y, split_hashtags))
-    hashtags = [ht.lower() if ht[0] == '#' else '#' + ht for ht in hashtags if ht != '']
+    hashtags = [ht if ht[0] == '#' else '#' + ht for ht in hashtags if ht != '']
+    hashtags = list(set(hashtags))
     return hashtags
 
 client = IISClient()
@@ -86,7 +87,7 @@ labels = np.array(labels)
 # network hyperparameters
 vector_dim = 300
 epochs = 100
-batch_size = 100000
+batch_size = 500000
 
 
 

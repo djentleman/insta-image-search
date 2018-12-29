@@ -25,7 +25,8 @@ def clean_hashtags(hashtags):
     split_hashtags = [ht.split('#') for ht in hashtags]
     # rejoin
     hashtags = list(reduce(lambda x, y: x + y, split_hashtags))
-    hashtags = [ht.lower() if ht[0] == '#' else '#' + ht for ht in hashtags if ht != '']
+    hashtags = [ht if ht[0] == '#' else '#' + ht for ht in hashtags if ht != '']
+    hashtags = list(set(hashtags))
     return hashtags
 
 # this will probably need to me moved somwhere else...
@@ -49,6 +50,7 @@ reverse_mapping = json.loads(open('reverse_mapping.json', 'r+').read())
 embedding_model = load_model('word_embedder')
 
 img_vectors = [x['iv'] for x in data]
+# should be closest to mean for ewach vevtpr
 word_vectors = [[embedding_model.predict([mapping[ht]])[0] for ht in y['ht']] for y in data]
 
 inputs = [[x, y.reshape(300,)] for i, x in enumerate(img_vectors) for y in word_vectors[i]]
