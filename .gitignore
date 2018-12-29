@@ -2,3 +2,4 @@ venv/
 *.pyc
 data/
 word_embedder*
+hashtag_classifier*
